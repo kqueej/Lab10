@@ -91,34 +91,131 @@
 // }
 
 // Step 7
-class Program
-{
-    static void Main()
-    {
-        string? text;
-        while (true)
-        {
-            Console.Write("Enter line: ");
-            text = Console.ReadLine();
+// class Program
+// {
+//     static void Main()
+//     {
+//         string? text;
+//         while (true)
+//         {
+//             Console.Write("Enter line: ");
+//             text = Console.ReadLine();
 
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                break;
-            }
-            Console.WriteLine("Error: line cannot ne empty");
-        }
+//             if (!string.IsNullOrWhiteSpace(text))
+//             {
+//                 break;
+//             }
+//             Console.WriteLine("Error: line cannot ne empty");
+//         }
 
-        string clean = text.Trim();
+//         string clean = text.Trim();
 
-        string lower = clean.ToLower();
+//         string lower = clean.ToLower();
 
-        bool containsCode = lower.Contains("код");
-        bool startsWithHello = lower.StartsWith("привет");
-        bool endsWithExclamation = clean.EndsWith("!");
+//         bool containsCode = lower.Contains("код");
+//         bool startsWithHello = lower.StartsWith("привет");
+//         bool endsWithExclamation = clean.EndsWith("!");
 
-        Console.WriteLine($"Include word \"код\": {(containsCode ? "true" : "false")}");
-        Console.WriteLine($"Start with \"Привет\": {(startsWithHello ? "true" : "false")}");
-        Console.WriteLine($"End with \"!\": {(endsWithExclamation ? "true" : "false")}");
-    }
-}
+//         Console.WriteLine($"Include word \"код\": {(containsCode ? "true" : "false")}");
+//         Console.WriteLine($"Start with \"Привет\": {(startsWithHello ? "true" : "false")}");
+//         Console.WriteLine($"End with \"!\": {(endsWithExclamation ? "true" : "false")}");
+//     }
+// }
 
+// Step 8
+// using System.Text;
+// class Program
+// {
+//     static void Main()
+//     {
+//         string result = "";
+
+//         for (int i = 1; i <= 5; i++)
+//         {
+//             result += i + " ";
+//         }
+
+//         Console.WriteLine("Use +=:");
+//         Console.WriteLine(result);
+
+//         StringBuilder sb = new();
+
+//         for (int i = 1; i <= 5; i++)
+//         {
+//             sb.Append(i);
+//             sb.Append(" ");
+//         }
+//         Console.WriteLine("Use StringBuilder:");
+//         Console.WriteLine(sb.ToString());
+//     }
+// }
+/*
+При использовании += строка неизменяема. Создается новая строка.
+А при использовании StringBuilder изменяет свой буфер и добавляет новые данные на месте
+*/
+
+// Step 9
+// using System.Text;
+
+// class Program
+// {
+//     static void Main()
+//     {
+//         string[] students = ["Иван", "Анна", "Пётр"];
+
+//         StringBuilder sb = new();
+
+//         sb.AppendLine("=== ОТЧЁТ ===");
+//         sb.Append("Группа: ")
+//           .AppendLine("2ИС-1");
+
+//         sb.Append("Студентов: ")
+//           .AppendLine(students.Length.ToString());
+
+//         for (int i = 0; i < students.Length; i++)
+//         {
+//             sb.Append(i + 1)
+//               .Append(". ")
+//               .AppendLine(students[i]);
+//         }
+
+//         Console.WriteLine(sb.ToString());
+//     }
+// }
+
+// Step 10
+// using System.Globalization;
+
+// class Program
+// {
+//     static void Main()
+//     {
+//         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
+//         string[] products = ["Хлеб", "Молоко", "Ноутбук"];
+//         double[] prices = [45, 89.5, 65999.99];
+
+//         Console.WriteLine($"{"№",-4}{"Товар",-12}{"Цена",12}");
+//         Console.WriteLine(new string('-', 28));
+
+//         for (int i = 0; i < products.Length; i++)
+//         {
+//             Console.WriteLine(
+//                 $"{i + 1:D2}  {products[i],-12} {prices[i],12:N2}"
+//             );
+//         }
+//     }
+// }
+
+// Step 11
+// using System.Globalization;
+
+// class Program
+// {
+//     static void Main()
+//     {
+//         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+//         Console.WriteLine($"{0.256:P0}");
+//         Console.WriteLine($"{255:X}");
+//     }
+// }
