@@ -221,137 +221,255 @@
 // }
 
 // Final task
-using System.Globalization;
-using System.Text;
+// using System.Globalization;
+// using System.Text;
 
+// class Program
+// {
+//     static void Main()
+//     {
+//         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
+//         Console.Write("Enter goods count: ");
+//         int count = int.Parse(Console.ReadLine()!);
+
+//         string[] names = new string[count];
+//         double[] prices = new double[count];
+//         int[] quantities = new int[count];
+
+//         double total = 0;
+
+//         for (int i = 0; i < count; i++)
+//         {
+//             while (true)
+//             {
+//                 Console.Write(
+//                     $"Enter product {i + 1} " +
+//                     "(name, price, count): "
+//                 );
+
+//                 string? line = Console.ReadLine();
+
+//                 if (ReadPurchase(
+//                     line,
+//                     out string name,
+//                     out double price,
+//                     out int quantity))
+//                 {
+//                     names[i] = name;
+//                     prices[i] = price;
+//                     quantities[i] = quantity;
+
+//                     total += price * quantity;
+//                     break;
+//                 }
+//                 Console.WriteLine(
+//                     "Error: etner data in this format " +
+//                     "name, price, count"
+//                 );
+//             }
+//         }
+//         string report = BuildReport(
+//             names,
+//             prices,
+//             quantities,
+//             total
+//         );
+//         Console.WriteLine();
+//         Console.WriteLine(report);
+//     }
+//     static bool ReadPurchase(
+//         string? line,
+//         out string name,
+//         out double price,
+//         out int quantity)
+//     {
+//         name = "";
+//         price = 0;
+//         quantity = 0;
+
+//         if (string.IsNullOrWhiteSpace(line))
+//         {
+//             return false;
+//         }
+
+//         string[] parts = line.Split(',');
+
+//         if (parts.Length != 3)
+//         {
+//             return false;
+//         }
+
+//         string namePart = parts[0].Trim();
+//         string pricePart = parts[1].Trim();
+//         string quantityPart = parts[2].Trim();
+
+//         if (string.IsNullOrWhiteSpace(namePart))
+//         {
+//             return false;
+//         }
+//         if (double.TryParse(pricePart, out double pPrice) == false)
+//         {
+//             return false;
+//         }
+//         if (int.TryParse(quantityPart, out int pQuantity) == false)
+//         {
+//             return false;
+//         }
+//         if (pPrice <= 0)
+//         {
+//             return false;
+//         }
+//         if (pQuantity <= 0)
+//         {
+//             return false;
+//         }
+
+//         name = namePart;
+//         price = pPrice;
+//         quantity = pQuantity;
+
+//         return true;
+//     }
+//     static string BuildReport(
+//         string[] names,
+//         double[] prices,
+//         int[] quantities,
+//         double total)
+//     {
+//         StringBuilder sb = new();
+
+//         sb.AppendLine("========== ПОКУПКИ ==========");
+//         sb.AppendLine($"{ "Товар",-18}{ "Кол-во",8}{ "Цена",12}{ "Сумма",12}");
+//         sb.AppendLine(new string('-', 50));
+
+//         for (int i = 0; i < names.Length; i++)
+//         {
+//             double sum = prices[i] * quantities[i];
+
+//             sb.AppendLine(
+//                 $"{names[i],-18}{quantities[i],8}{prices[i],12:F2}{sum,12:F2}"
+//             );
+//         }
+//         sb.AppendLine($"{ "ИТОГО:",-38}{total,12:F2}");
+//         return sb.ToString();
+//     }
+// }
+
+// Self 1
+// class Program
+// {
+//     static void Main()
+//     {
+//         Console.Write("Enter: ");
+//         string? phone = Console.ReadLine();
+
+//         if (string.IsNullOrWhiteSpace(phone) || phone.Length != 11)
+//         {
+//             Console.WriteLine("Error: must be 11 numbers.");
+//             return;
+//         }
+//         string result =
+//             "+7 (" +
+//             phone.Substring(1, 3) +
+//             ") " +
+//             phone.Substring(4, 3) +
+//             "-" +
+//             phone.Substring(7, 2) +
+//             "-" +
+//             phone.Substring(9, 2);
+//         Console.WriteLine(result);
+//     }
+// }
+
+// Self 2
+// class Program
+// {
+//     static void Main()
+//     {
+//         Console.Write("Enter sentence: ");
+//         string? sentence = Console.ReadLine();
+
+//         if (string.IsNullOrWhiteSpace(sentence))
+//         {
+//             Console.WriteLine("Sentense is null");
+//             return;
+//         }
+//         string[] words = sentence.Split(
+//             ' ',
+//             StringSplitOptions.RemoveEmptyEntries
+//         );
+
+//         Console.WriteLine($"Words count: {words.Length}");
+//         string longest = words[0];
+
+//         for (int i = 1; i < words.Length; i++)
+//         {
+//             if (words[i].Length > longest.Length)
+//             {
+//                 longest = words[i];
+//             }
+//         }
+
+//         Console.WriteLine($"The most length word: {longest}");
+
+//         Console.Write("Enter letter: ");
+//         string? input = Console.ReadLine();
+//         char letter = char.ToLower(input[0]);
+
+//         Console.WriteLine("Words with this letter:");
+
+//         foreach (string word in words)
+//         {
+//             if (word.Length > 0 &&
+//                 char.ToLower(word[0]) == letter)
+//             {
+//                 Console.WriteLine(word);
+//             }
+//         }
+//     }
+// }
+
+// Self 3
+using System.Text;
 class Program
 {
     static void Main()
     {
-        CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+        Console.Write("Enter: ");
+        string? text = Console.ReadLine();
 
-        Console.Write("Enter goods count: ");
-        int count = int.Parse(Console.ReadLine()!);
-
-        string[] names = new string[count];
-        double[] prices = new double[count];
-        int[] quantities = new int[count];
-
-        double total = 0;
-
-        for (int i = 0; i < count; i++)
+        if (text == null)
         {
-            while (true)
+            Console.WriteLine("String is missing.");
+            return;
+        }
+
+        Console.WriteLine(MaskData(text));
+    }
+
+    static string MaskData(string text)
+    {
+        StringBuilder result = new();
+
+        int digitCount = text.Length;
+
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (i < digitCount - 4)
             {
-                Console.Write(
-                    $"Enter product {i + 1} " +
-                    "(name, price, count): "
-                );
-
-                string? line = Console.ReadLine();
-
-                if (ReadPurchase(
-                    line,
-                    out string name,
-                    out double price,
-                    out int quantity))
-                {
-                    names[i] = name;
-                    prices[i] = price;
-                    quantities[i] = quantity;
-
-                    total += price * quantity;
-                    break;
-                }
-                Console.WriteLine(
-                    "Error: etner data in this format " +
-                    "name, price, count"
-                );
+                result.Append('*');
+            }
+            else
+            {
+                result.Append(text[i]);
             }
         }
-        string report = BuildReport(
-            names,
-            prices,
-            quantities,
-            total
-        );
-        Console.WriteLine();
-        Console.WriteLine(report);
-    }
-    static bool ReadPurchase(
-        string? line,
-        out string name,
-        out double price,
-        out int quantity)
-    {
-        name = "";
-        price = 0;
-        quantity = 0;
-
-        if (string.IsNullOrWhiteSpace(line))
-        {
-            return false;
-        }
-
-        string[] parts = line.Split(',');
-
-        if (parts.Length != 3)
-        {
-            return false;
-        }
-
-        string namePart = parts[0].Trim();
-        string pricePart = parts[1].Trim();
-        string quantityPart = parts[2].Trim();
-
-        if (string.IsNullOrWhiteSpace(namePart))
-        {
-            return false;
-        }
-        if (double.TryParse(pricePart, out double pPrice) == false)
-        {
-            return false;
-        }
-        if (int.TryParse(quantityPart, out int pQuantity) == false)
-        {
-            return false;
-        }
-        if (pPrice <= 0)
-        {
-            return false;
-        }
-        if (pQuantity <= 0)
-        {
-            return false;
-        }
-
-        name = namePart;
-        price = pPrice;
-        quantity = pQuantity;
-
-        return true;
-    }
-    static string BuildReport(
-        string[] names,
-        double[] prices,
-        int[] quantities,
-        double total)
-    {
-        StringBuilder sb = new();
-
-        sb.AppendLine("========== ПОКУПКИ ==========");
-        sb.AppendLine($"{ "Товар",-18}{ "Кол-во",8}{ "Цена",12}{ "Сумма",12}");
-        sb.AppendLine(new string('-', 50));
-
-        for (int i = 0; i < names.Length; i++)
-        {
-            double sum = prices[i] * quantities[i];
-
-            sb.AppendLine(
-                $"{names[i],-18}{quantities[i],8}{prices[i],12:F2}{sum,12:F2}"
-            );
-        }
-        sb.AppendLine($"{ "ИТОГО:",-38}{total,12:F2}");
-        return sb.ToString();
+        return result.ToString();
     }
 }
+
+/* 
+Если строка меньше и от 4 символов, то будет просто возвращать эту же строку. 
+Т.к получит при 3 символах -1, условие наше никогда не выполнится
+*/
