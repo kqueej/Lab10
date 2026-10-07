@@ -219,3 +219,139 @@
 //         Console.WriteLine($"{255:X}");
 //     }
 // }
+
+// Final task
+using System.Globalization;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
+        Console.Write("Enter goods count: ");
+        int count = int.Parse(Console.ReadLine()!);
+
+        string[] names = new string[count];
+        double[] prices = new double[count];
+        int[] quantities = new int[count];
+
+        double total = 0;
+
+        for (int i = 0; i < count; i++)
+        {
+            while (true)
+            {
+                Console.Write(
+                    $"Enter product {i + 1} " +
+                    "(name, price, count): "
+                );
+
+                string? line = Console.ReadLine();
+
+                if (ReadPurchase(
+                    line,
+                    out string name,
+                    out double price,
+                    out int quantity))
+                {
+                    names[i] = name;
+                    prices[i] = price;
+                    quantities[i] = quantity;
+
+                    total += price * quantity;
+                    break;
+                }
+                Console.WriteLine(
+                    "Error: etner data in this format " +
+                    "name, price, count"
+                );
+            }
+        }
+        string report = BuildReport(
+            names,
+            prices,
+            quantities,
+            total
+        );
+        Console.WriteLine();
+        Console.WriteLine(report);
+    }
+    static bool ReadPurchase(
+        string? line,
+        out string name,
+        out double price,
+        out int quantity)
+    {
+        name = "";
+        price = 0;
+        quantity = 0;
+
+        if (string.IsNullOrWhiteSpace(line))
+        {
+            return false;
+        }
+
+        string[] parts = line.Split(',');
+
+        if (parts.Length != 3)
+        {
+            return false;
+        }
+
+        string namePart = parts[0].Trim();
+        string pricePart = parts[1].Trim();
+        string quantityPart = parts[2].Trim();
+
+        if (string.IsNullOrWhiteSpace(namePart))
+        {
+            return false;
+        }
+        if (double.TryParse(pricePart, out double pPrice) == false)
+        {
+            return false;
+        }
+        if (int.TryParse(quantityPart, out int pQuantity) == false)
+        {
+            return false;
+        }
+        if (pPrice <= 0)
+        {
+            return false;
+        }
+        if (pQuantity <= 0)
+        {
+            return false;
+        }
+
+        name = namePart;
+        price = pPrice;
+        quantity = pQuantity;
+
+        return true;
+    }
+    static string BuildReport(
+        string[] names,
+        double[] prices,
+        int[] quantities,
+        double total)
+    {
+        StringBuilder sb = new();
+
+        sb.AppendLine("========== ПОКУПКИ ==========");
+        sb.AppendLine($"{ "Товар",-18}{ "Кол-во",8}{ "Цена",12}{ "Сумма",12}");
+        sb.AppendLine(new string('-', 50));
+
+        for (int i = 0; i < names.Length; i++)
+        {
+            double sum = prices[i] * quantities[i];
+
+            sb.AppendLine(
+                $"{names[i],-18}{quantities[i],8}{prices[i],12:F2}{sum,12:F2}"
+            );
+        }
+        sb.AppendLine($"{ "ИТОГО:",-38}{total,12:F2}");
+        return sb.ToString();
+    }
+}
